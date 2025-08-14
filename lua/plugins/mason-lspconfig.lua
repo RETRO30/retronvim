@@ -2,23 +2,29 @@ require("mason-lspconfig").setup({
   ensure_installed = { "gopls", "clangd", "pyright" },
 })
 
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+
 vim.lsp.config('gopls', {
-  flags = { debounce_text_changes = 150 },
-  settings = {
-    gopls = {
-      analyses    = { unusedparams = true, unreachable = true },
-      staticcheck = true,
+    capabilities = capabilities,
+    flags = { debounce_text_changes = 150 },
+    settings = {
+        gopls = {
+            analyses    = { unusedparams = true, unreachable = true },
+            staticcheck = true,
+        },
     },
-  },
 })
 
 
 vim.lsp.config('clangd', {
-  flags = { debounce_text_changes = 150 } 
+    capabilities = capabilities,
+    flags = { debounce_text_changes = 150 } 
 })
 
 
 vim.lsp.config('pyright', {
-  flags = { debounce_text_changes = 150 },
-  settings = { python = { analysis = { typeCheckingMode = "basic" } } }, 
+    capabilities = capabilities,
+    flags = { debounce_text_changes = 150 },
+    settings = { python = { analysis = { typeCheckingMode = "basic" } } }, 
 })
